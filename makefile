@@ -28,5 +28,5 @@ ifeq ($(OS),Windows_NT)
 	-$(RM_CMD) $(TARGET)$(EXE) 2>$(NULLDEV)
 	-$(RM_CMD) graph.txt 2>$(NULLDEV)
 else
-	-$(RM_CMD) $(TARGET)$(EXE) graph.txt
+	-$(RM_CMD) $(TARGET)$(EXE) CTY.txt
 endif

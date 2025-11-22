@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+/*TODO: Verificar que no se repitan los caracteres en el archivo (Gestion de errores)*/
 void ppvStart(int *CTY){
     FILE *CTY_txt = fopen("CTY.txt", "rb");
     if(!CTY_txt){
