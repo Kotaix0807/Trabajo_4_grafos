@@ -2,12 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-typedef struct instr{
-    char **arg;
-    int MAX_ARGS;
-    int MAX_CHARS;
-}in_str;
+#include "tools.h"
 
 in_str initArg(int args, int chars){
     in_str cur;
@@ -16,8 +11,7 @@ in_str initArg(int args, int chars){
     cur.arg = calloc(args, sizeof(char *));
     if(!cur.arg){
         perror("calloc error");
-        cur.MAX_ARGS = -1;
-        cur.MAX_CHARS = -1;
+        memset(&cur, 0, sizeof(in_str));
         return cur;
     }
     return cur;
@@ -26,6 +20,10 @@ in_str initArg(int args, int chars){
 void escanf(in_str *cur){
     if(cur->MAX_ARGS <= 0 || cur->MAX_CHARS <= 0){
         printf("Error: invalid argument or char amount\n");
+        return;
+    }
+    if(!cur->arg){
+        printf("Error: arguments buffer not initialized\n");
         return;
     }
     char buffer[cur->MAX_CHARS];
@@ -58,8 +56,7 @@ void escanf(in_str *cur){
 
 void freeArgs(in_str *cur)
 {
-    if(cur->MAX_ARGS <= 0){
-        printf("Error: couldn't free Arguments strings, invalid length.\n");
+    if(!cur || !cur->arg || cur->MAX_ARGS <= 0){
         return;
     }
     for(int i = 0; i < cur->MAX_ARGS; i++){
@@ -68,4 +65,14 @@ void freeArgs(in_str *cur)
     }
 }
 
-
+void destroyArgs(in_str *cur)
+{
+    if(!cur){
+        return;
+    }
+    freeArgs(cur);
+    free(cur->arg);
+    cur->arg = NULL;
+    cur->MAX_ARGS = 0;
+    cur->MAX_CHARS = 0;
+}

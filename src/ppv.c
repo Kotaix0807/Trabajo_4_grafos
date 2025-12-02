@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include "ppv.h"
 /*TODO: Verificar que no se repitan los caracteres en el archivo (Gestion de errores)*/
 void ppvStart(int *CTY){
     FILE *CTY_txt = fopen("CTY.txt", "rb");
@@ -24,7 +25,7 @@ void ppvStart(int *CTY){
     
     rewind(CTY_txt);
     size_t large = (size_t)file_size;
-    char *seq = malloc(large + 1);
+    char *seq = (char *)malloc(large + 1);
     if(!seq){
         printf("Error: malloc failed\n");
         fclose(CTY_txt);
@@ -43,10 +44,14 @@ void ppvStart(int *CTY){
     printf("Cities: [%s]\n", seq); //<---------- HALF-END
     *CTY = (int)(strlen(seq) / sizeof(char));
     printf("Large: %d\n", *CTY);
-    return;
+    free(seq);
 }
 
 void ppvRead(const char *path){
+    if (!path){
+        printf("Error: No se especifico ruta o archivo\n");
+        return;
+    }
     FILE *route = fopen(path, "r");
     if(!route){
         printf("Error: La ruta o archivo '%s' no se encuentra o no existe\n", path);

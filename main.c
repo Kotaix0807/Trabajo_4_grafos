@@ -1,11 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 #include "tools.h"
 #include "ppv.h"
 
 int main(void){
-    int inst = 1, CTY = 0;
+    int CTY = 0;
     in_str menu = initArg(2, 64);
 
-    while(inst)
+    while(1)
     {
         printf(">ppv ");
         escanf(&menu);
@@ -20,11 +23,13 @@ int main(void){
         else if(!strcmp(menu.arg[0], "exit")){
             ppvExit();
             printf("\n");
-            inst = 0;
+            freeArgs(&menu);
+            break;
         }
         else if(menu.arg[0] != NULL)
             printf("Comando '%s' no reconocido\n\n", menu.arg[0]);
         freeArgs(&menu);
     }
+    destroyArgs(&menu);
     return 0;
 }
