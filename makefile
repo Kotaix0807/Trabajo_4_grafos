@@ -3,8 +3,8 @@ DEPS_PATH  = include
 SRC_PATH = src
 
 ROOT_SRC = main.c
-DEPS = ppv.h tools.h
-SRCS_DEPS= ppv.c tools.c
+DEPS = ppv.h tools.h graph.h
+SRCS_DEPS= ppv.c tools.c graph.c
 
 SRCS_PREFIX = $(ROOT_SRC) $(addprefix $(SRC_PATH)/,$(SRCS_DEPS))
 DEPS_PREFIX = $(addprefix $(DEPS_PATH)/,$(DEPS))
@@ -39,11 +39,14 @@ VALGRIND = valgrind $(VALGRIND_FLAGS)
 VALGRIND_FREE_FLAGS = --leak-check=full --show-leak-kinds=definite
 VALGRIND_FREE = valgrind $(VALGRIND_FREE_FLAGS)
 
-.PHONY: all build run leaks clean
+.PHONY: all build run leaks clean debug
 
 all: build
 
 build: $(BIN)
+
+debug: CFLAGS += -Werror #-DDEBUG -UDEBUG
+debug: build run
 
 $(BIN): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^

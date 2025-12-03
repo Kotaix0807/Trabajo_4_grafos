@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <time.h>
 #include "tools.h"
 
@@ -16,7 +17,6 @@ in_str initArg(int args, int chars){
     }
     return cur;
 }
-
 void escanf(in_str *cur){
     if(cur->MAX_ARGS <= 0 || cur->MAX_CHARS <= 0){
         printf("Error: invalid argument or char amount\n");
@@ -53,7 +53,6 @@ void escanf(in_str *cur){
         token = strtok(NULL, " "); //Vacia string guardado en "token"
     }
 }
-
 void freeArgs(in_str *cur)
 {
     if(!cur || !cur->arg || cur->MAX_ARGS <= 0){
@@ -64,7 +63,6 @@ void freeArgs(in_str *cur)
         cur->arg[i] = NULL;
     }
 }
-
 void destroyArgs(in_str *cur)
 {
     if(!cur){
@@ -75,4 +73,42 @@ void destroyArgs(in_str *cur)
     cur->arg = NULL;
     cur->MAX_ARGS = 0;
     cur->MAX_CHARS = 0;
+}
+
+bool binarySearch_bool(int arr[], int low, int high, int x)
+{
+    if (high >= low) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == x)
+            return true;
+
+        if (arr[mid] > x)
+            return binarySearch_bool(arr, low, mid - 1, x);
+
+        return binarySearch_bool(arr, mid + 1, high, x);
+    }
+    return false;
+}
+bool verifyCase(unsigned char *c)
+{
+    const int alphabet_size = 26;
+    int upper[alphabet_size];
+    int lower[alphabet_size];
+    for(int i = 0; i < alphabet_size; i++)
+    {
+        upper[i] = (int)('A' + i);
+        lower[i] = (int)('a' + i);
+    }
+    bool isUpper = binarySearch_bool(upper, 0, alphabet_size - 1, (int)*c);
+    bool isLower = binarySearch_bool(lower, 0, alphabet_size - 1, (int)*c);
+    #ifdef DEBUG
+        printf("Debugging: %c", c);
+        printf("Bool_upper: %d\nBool_lower: %d\n", isUpper, isLower);
+    #endif
+    if(!isUpper && isLower)
+        *c -= 32;
+    if(!isUpper && !isLower)
+        return false;
+    return true;
 }

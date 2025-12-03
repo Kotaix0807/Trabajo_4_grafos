@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "graph.h"
 #include "ppv.h"
 /*TODO: Verificar que no se repitan los caracteres en el archivo (Gestion de errores)*/
 void ppvStart(int *CTY){
