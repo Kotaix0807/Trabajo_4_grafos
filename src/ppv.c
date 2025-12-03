@@ -1,10 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "graph.h"
 #include "ppv.h"
 /*TODO: Verificar que no se repitan los caracteres en el archivo (Gestion de errores)*/
-void ppvStart(int *CTY){
+void ppvStart(char *arg, Graph **graph)
+{
+    int n_cities;
+    if(!arg || (n_cities = atoi(arg)) <= 0)
+    {
+        printf("Error: invalid number assign\n");
+        return;
+    }
+    Graph *tmp = initGraph(n_cities);
+    if(!tmp)
+    {
+        printf("Error: graph allocation failed\n");
+        return;
+    }
+    if(graph && *graph)
+        freeGraph(*graph);
+    if(graph)
+        *graph = tmp;
+    printf("Graph initialized with '%d' cities\n", n_cities);
+}
+
+void ppvRead(const char *path)
+{
+    if (!path)
+    {
+        printf("Error: No se especifico ruta o archivo\n");
+        return;
+    }
+    FILE *route = fopen(path, "r");
+    if(!route)
+    {
+        printf("Error: La ruta o archivo '%s' no se encuentra o no existe\n", path);
+        return;
+    }
+}
+
+void ppvGraph()
+{
+
+    
+}
+
+void ppvExit()
+{
+
+
+}
+
+/* Read file
+
+
     FILE *CTY_txt = fopen("CTY.txt", "rb");
     if(!CTY_txt){
         printf("Error: file 'CTY.txt' not found\n");
@@ -46,26 +94,4 @@ void ppvStart(int *CTY){
     *CTY = (int)(strlen(seq) / sizeof(char));
     printf("Large: %d\n", *CTY);
     free(seq);
-}
-
-void ppvRead(const char *path){
-    if (!path){
-        printf("Error: No se especifico ruta o archivo\n");
-        return;
-    }
-    FILE *route = fopen(path, "r");
-    if(!route){
-        printf("Error: La ruta o archivo '%s' no se encuentra o no existe\n", path);
-        return;
-    }
-}
-
-void ppvGraph(){
-
-    
-}
-
-void ppvExit(){
-
-
-}
+*/

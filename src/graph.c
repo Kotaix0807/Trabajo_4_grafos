@@ -91,6 +91,8 @@ void printGraph(Graph *main, print_mode mode)
 void freeGraph(Graph *main)
 {
     int n = main->n;
+    if(!main)
+        return;
     for(int i = 0; i < n; i++)
         free(main->cost[i]);
     free(main->cost);
@@ -98,5 +100,4 @@ void freeGraph(Graph *main)
     main->n = 0;
     free(main);
     main = NULL;
-
 }

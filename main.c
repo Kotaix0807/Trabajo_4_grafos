@@ -1,40 +1,39 @@
-#include "graph.h"
 #include "tools.h"
 #include "ppv.h"
 
-#define DEBUG
+//#define DEBUG
 
 #ifndef DEBUG
 #include <stdio.h>
     #include <string.h>
     int main(void)
     {
-        int CTY = 0;
         in_str menu = initArg(2, 64);
+        Graph *main = NULL;
 
         while(1)
         {
             printf(">ppv ");
             escanf(&menu);
             if(!strcmp(menu.arg[0], "start")){
-                ppvStart(&CTY);
-                printf("\n");
+                ppvStart(menu.arg[1], &main);
             }
             else if(!strcmp(menu.arg[0], "read")){
                 ppvRead(menu.arg[1]);
-                printf("\n");
             }
             else if(!strcmp(menu.arg[0], "exit")){
                 ppvExit();
-                printf("\n");
                 freeArgs(&menu);
+                printf("\n");
                 break;
             }
             else if(menu.arg[0] != NULL)
                 printf("Comando '%s' no reconocido\n\n", menu.arg[0]);
             freeArgs(&menu);
+            printf("\n");
         }
         destroyArgs(&menu);
+        freeGraph(main);
         return 0;
     }
 
