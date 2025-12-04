@@ -34,9 +34,9 @@ Graph *initGraph(int n)
     return main;
 }
 
-void addEdge(Graph *main, unsigned char src, unsigned char dest, int weight)
+void addEdge(Graph *graph, unsigned char src, unsigned char dest, int weight)
 { 
-    if(!main)
+    if(!graph)
     {
         printf("Error: graph not initialized\n");
         return;
@@ -48,56 +48,62 @@ void addEdge(Graph *main, unsigned char src, unsigned char dest, int weight)
     }
     int y = src - 'A';
     int x = dest - 'A';
-    if(y >= main->n || x >= main->n || y < 0 || x < 0)
+    if(y >= graph->n || x >= graph->n || y < 0 || x < 0)
     {
         printf("Error: edge out of bounds\n");
         return;
     }
     if(src != dest)
-        main->cost[y][x] = weight;
+        graph->cost[y][x] = weight;
 }
 
-void printGraph(Graph *main, print_mode mode)
+void printGraph(Graph *graph, print_mode mode)
 {
     if(mode == MODE_1)
     {
-        for(int y = 0; y < main->n; y++)
+        for(int y = 0; y < graph->n; y++)
         {
-            for(int x = 0; x < main->n; x++)
-                printf("%c %c -> %d\t", y + 'A', x + 'A', main->cost[y][x]);
+            for(int x = 0; x < graph->n; x++)
+                printf("%c %c -> %d\t", y + 'A', x + 'A', graph->cost[y][x]);
             printf("\n");
         }
     }
     else if(mode == MODE_2)
     {
         printf("\t");
-        for(int y = 0; y < main->n; y++)
+        for(int y = 0; y < graph->n; y++)
             printf("%c\t", y + 'A');
 
         printf("\n\n");
-        for(int y = 0; y < main->n; y++)
+        for(int y = 0; y < graph->n; y++)
         {
             printf("%c\t", y + 'A');
-            for(int x = 0; x < main->n; x++)
-            {
-                printf("%d\t", main->cost[y][x]);
-            }
+            for(int x = 0; x < graph->n; x++)
+                printf("%d\t", graph->cost[y][x]);
             printf("\n\n");
         }
-
     }
 }
-
-void freeGraph(Graph *main)
+void freeGraph(Graph *graph)
 {
-    int n = main->n;
-    if(!main)
+    if(!graph)
         return;
+    int n = graph->n;
     for(int i = 0; i < n; i++)
-        free(main->cost[i]);
-    free(main->cost);
-    main->cost = NULL;
-    main->n = 0;
-    free(main);
-    main = NULL;
+        free(graph->cost[i]);
+    free(graph->cost);
+    graph->cost = NULL;
+    graph->n = 0;
+    free(graph);
+    graph = NULL;
+}
+
+void freeMatGraph(Graph *graph)
+{
+    if(!graph)
+        return;
+    int n = graph->n;
+    for(int i = 0; i < n; i++)
+        free(graph->cost[i]);
+    free(graph->cost);
 }

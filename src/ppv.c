@@ -5,7 +5,14 @@
 void ppvStart(char *arg, Graph **graph)
 {
     int n_cities;
-    if(!arg || (n_cities = atoi(arg)) <= 0)
+    if(!arg)
+    {
+        printf("Error: no input\n");
+        printf("Use: 'start <n_cities>'\n");
+        printf("Type 'help' 'h' '-h' for more help\n");
+        return;
+    }
+    if((n_cities = atoi(arg)) <= 0)
     {
         printf("Error: invalid number assign\n");
         return;
@@ -23,7 +30,7 @@ void ppvStart(char *arg, Graph **graph)
     printf("Graph initialized with '%d' cities\n", n_cities);
 }
 
-void ppvRead(const char *path)
+void ppvRead(const char *path, Graph **graph)
 {
     if (!path)
     {
@@ -34,19 +41,48 @@ void ppvRead(const char *path)
     if(!route)
     {
         printf("Error: La ruta o archivo '%s' no se encuentra o no existe\n", path);
+        fclose(route);
         return;
+    }
+    unsigned char a, b;
+    int weight;
+    int secure_fscanf;
+    while((secure_fscanf = fscanf(route, "%c %c %d\n", &a, &b, &weight)) != EOF)
+    {
+        if(secure_fscanf != 3)
+        {
+            printf("Error: Poorly written txt route\n");
+            printf("Hint: Make sure your file is correct\n");
+            fclose(route);
+            freeMatGraph(*graph);
+            return;
+        }
+        addEdge(*graph, a, b, weight);
     }
 }
 
-void ppvGraph()
+void ppvGraph(Graph *graph, char *mode)
 {
-
-    
+    print_mode current = 0;
+    int result;
+    if(!mode)
+    {
+        printf("Error: no mode especified\n");
+        return;
+    }
+    if((result = (atoi(mode) - 1)) <= -1)
+    {
+        printf("Error: mode '%d' does not exists\n", result);
+        return;
+    }
+    current = result;
+    printGraph(graph, current);
+    return;
 }
 
 void ppvExit()
 {
-
+    return;
 
 }
 

@@ -5,7 +5,7 @@
 
 #ifndef DEBUG
 #include <stdio.h>
-    #include <string.h>
+#include <string.h>
     int main(void)
     {
         in_str menu = initArg(2, 64);
@@ -19,12 +19,14 @@
                 ppvStart(menu.arg[1], &main);
             }
             else if(!strcmp(menu.arg[0], "read")){
-                ppvRead(menu.arg[1]);
+                ppvRead(menu.arg[1], &main);
+            }
+            else if(!strcmp(menu.arg[0], "print")){
+                ppvGraph(main, menu.arg[1]);
             }
             else if(!strcmp(menu.arg[0], "exit")){
                 ppvExit();
                 freeArgs(&menu);
-                printf("\n");
                 break;
             }
             else if(menu.arg[0] != NULL)
@@ -38,12 +40,20 @@
     }
 
 #else
+#include <stdio.h>
+#include <string.h>
     int main(void)
     {
-        Graph *main = initGraph(3);
-        addEdge(main, 'c', 'A', 13);
-        printGraph(main, MODE_2);
-        freeGraph(main);
+        char linea[] = "hola como estas amigo";
+        
+        char *token = strtok(linea, " ");
+
+        while (token != NULL)
+        {
+            printf("Token: '%s'\n", token);
+            token = strtok(NULL, " "); //Cuando es NULL, se avanza con el string anterior, NO SE LIMPIA
+        }
+
         return 0;
     }
     

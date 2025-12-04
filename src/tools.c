@@ -5,19 +5,22 @@
 #include <time.h>
 #include "tools.h"
 
-in_str initArg(int args, int chars){
+in_str initArg(int args, int chars)
+{
     in_str cur;
     cur.MAX_ARGS = args;
     cur.MAX_CHARS = chars;
     cur.arg = calloc(args, sizeof(char *));
-    if(!cur.arg){
+    if(!cur.arg)
+    {
         perror("calloc error");
         memset(&cur, 0, sizeof(in_str));
         return cur;
     }
     return cur;
 }
-void escanf(in_str *cur){
+void escanf(in_str *cur)
+{
     if(cur->MAX_ARGS <= 0 || cur->MAX_CHARS <= 0){
         printf("Error: invalid argument or char amount\n");
         return;
