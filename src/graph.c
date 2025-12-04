@@ -59,6 +59,11 @@ void addEdge(Graph *graph, unsigned char src, unsigned char dest, int weight)
 
 void printGraph(Graph *graph, print_mode mode)
 {
+    if(!graph)
+    {
+        printf("Error: graph is invalid or not initialized\n");
+        return;
+    }
     if(mode == MODE_1)
     {
         for(int y = 0; y < graph->n; y++)
@@ -96,14 +101,4 @@ void freeGraph(Graph *graph)
     graph->n = 0;
     free(graph);
     graph = NULL;
-}
-
-void freeMatGraph(Graph *graph)
-{
-    if(!graph)
-        return;
-    int n = graph->n;
-    for(int i = 0; i < n; i++)
-        free(graph->cost[i]);
-    free(graph->cost);
 }

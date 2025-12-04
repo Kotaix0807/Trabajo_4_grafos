@@ -32,6 +32,11 @@ void ppvStart(char *arg, Graph **graph)
 
 void ppvRead(const char *path, Graph **graph)
 {
+    if (!graph || !*graph)
+    {
+        printf("Error: graph not initialized, use 'start <n_cities>' first\n");
+        return;
+    }
     if (!path)
     {
         printf("Error: No se especifico ruta o archivo\n");
@@ -54,15 +59,22 @@ void ppvRead(const char *path, Graph **graph)
             printf("Error: Poorly written txt route\n");
             printf("Hint: Make sure your file is correct\n");
             fclose(route);
-            freeMatGraph(*graph);
+            freeGraph(*graph);
+            *graph = NULL;
             return;
         }
         addEdge(*graph, a, b, weight);
     }
+    fclose(route);
 }
 
 void ppvGraph(Graph *graph, char *mode)
 {
+    if(!graph)
+    {
+        printf("Error: invalid graph or not set\n");
+        return;
+    }
     print_mode current = 0;
     int result;
     if(!mode)
