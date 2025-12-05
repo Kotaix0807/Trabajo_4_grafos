@@ -25,8 +25,6 @@
                 pvvGraph(main, menu.arg[1]);
             }
             else if(!strcmp(menu.arg[0], "exit")){
-                pvvExit();
-                freeArgs(&menu);
                 break;
             }
             else if(menu.arg[0] != NULL)
@@ -34,6 +32,7 @@
             freeArgs(&menu);
             printf("\n");
         }
+        freeArgs(&menu);
         destroyArgs(&menu);
         freeGraph(main);
         return 0;

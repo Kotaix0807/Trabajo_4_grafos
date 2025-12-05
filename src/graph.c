@@ -54,7 +54,10 @@ void addEdge(Graph *graph, unsigned char src, unsigned char dest, int weight)
         return;
     }
     if(src != dest)
+    {
         graph->cost[y][x] = weight;
+        graph->cost[x][y] = weight;
+    }
 }
 
 void printGraph(Graph *graph, print_mode mode)

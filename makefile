@@ -3,8 +3,8 @@ DEPS_PATH  = include
 SRC_PATH = src
 
 ROOT_SRC = main.c
-DEPS = pvv.h tools.h graph.h
-SRCS_DEPS= pvv.c tools.c graph.c
+DEPS := $(notdir $(wildcard $(DEPS_PATH)/*.h))
+SRCS_DEPS := $(notdir $(wildcard $(SRC_PATH)/*.c))
 
 SRCS_PREFIX = $(ROOT_SRC) $(addprefix $(SRC_PATH)/,$(SRCS_DEPS))
 DEPS_PREFIX = $(addprefix $(DEPS_PATH)/,$(DEPS))

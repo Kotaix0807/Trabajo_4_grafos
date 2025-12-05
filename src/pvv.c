@@ -65,6 +65,7 @@ void pvvRead(const char *path, Graph **graph)
         }
         addEdge(*graph, a, b, weight);
     }
+    printf("Route '%s' read succesfully and set to actual graph\n", path);
     fclose(route);
 }
 
@@ -82,20 +83,14 @@ void pvvGraph(Graph *graph, char *mode)
         printf("Error: no mode especified\n");
         return;
     }
-    if((result = (atoi(mode) - 1)) <= -1)
+    if((result = (atoi(mode) - 1)) <= -1 || result >= 2)
     {
-        printf("Error: mode '%d' does not exists\n", result);
+        printf("Error: mode '%d' does not exists\n", result + 1);
         return;
     }
     current = result;
     printGraph(graph, current);
     return;
-}
-
-void pvvExit()
-{
-    return;
-
 }
 
 /* Read file
