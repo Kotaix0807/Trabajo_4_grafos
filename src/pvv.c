@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ppv.h"
+#include "pvv.h"
 /*TODO: Verificar que no se repitan los caracteres en el archivo (Gestion de errores)*/
-void ppvStart(char *arg, Graph **graph)
+void pvvStart(char *arg, Graph **graph)
 {
     int n_cities;
     if(!arg)
@@ -30,7 +30,7 @@ void ppvStart(char *arg, Graph **graph)
     printf("Graph initialized with '%d' cities\n", n_cities);
 }
 
-void ppvRead(const char *path, Graph **graph)
+void pvvRead(const char *path, Graph **graph)
 {
     if (!graph || !*graph)
     {
@@ -68,7 +68,7 @@ void ppvRead(const char *path, Graph **graph)
     fclose(route);
 }
 
-void ppvGraph(Graph *graph, char *mode)
+void pvvGraph(Graph *graph, char *mode)
 {
     if(!graph)
     {
@@ -92,7 +92,7 @@ void ppvGraph(Graph *graph, char *mode)
     return;
 }
 
-void ppvExit()
+void pvvExit()
 {
     return;
 

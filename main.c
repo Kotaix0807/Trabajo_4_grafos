@@ -1,5 +1,5 @@
 #include "tools.h"
-#include "ppv.h"
+#include "pvv.h"
 
 //#define DEBUG
 
@@ -16,16 +16,16 @@
             printf(">ppv ");
             escanf(&menu);
             if(!strcmp(menu.arg[0], "start")){
-                ppvStart(menu.arg[1], &main);
+                pvvStart(menu.arg[1], &main);
             }
             else if(!strcmp(menu.arg[0], "read")){
-                ppvRead(menu.arg[1], &main);
+                pvvRead(menu.arg[1], &main);
             }
             else if(!strcmp(menu.arg[0], "print")){
-                ppvGraph(main, menu.arg[1]);
+                pvvGraph(main, menu.arg[1]);
             }
             else if(!strcmp(menu.arg[0], "exit")){
-                ppvExit();
+                pvvExit();
                 freeArgs(&menu);
                 break;
             }
