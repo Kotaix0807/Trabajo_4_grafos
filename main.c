@@ -24,6 +24,9 @@
             else if(!strcmp(menu.arg[0], "print")){
                 pvvGraph(main, menu.arg[1]);
             }
+            else if(!strcmp(menu.arg[0], "help") || !strcmp(menu.arg[0], "-h") || !strcmp(menu.arg[0], "h")){
+                pvvHelp();
+            }
             else if(!strcmp(menu.arg[0], "exit")){
                 break;
             }
@@ -32,6 +35,8 @@
             freeArgs(&menu);
             printf("\n");
         }
+        //end while bucle
+
         freeArgs(&menu);
         destroyArgs(&menu);
         freeGraph(main);

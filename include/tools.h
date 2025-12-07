@@ -1,4 +1,7 @@
 #include <stdbool.h>
+
+#define ARR_SIZE(a) sizeof(a)/sizeof(a[0])
+
 typedef struct instr{
     char **arg;
     int MAX_ARGS;

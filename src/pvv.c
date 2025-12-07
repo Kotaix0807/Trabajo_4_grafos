@@ -12,7 +12,7 @@ void pvvStart(char *arg, Graph **graph)
         printf("Type 'help' 'h' '-h' for more help\n");
         return;
     }
-    if((n_cities = atoi(arg)) <= 0)
+    if((n_cities = atoi(arg)) <= 0 || n_cities > 26)
     {
         printf("Error: invalid number assign\n");
         return;
@@ -63,6 +63,7 @@ void pvvRead(const char *path, Graph **graph)
             *graph = NULL;
             return;
         }
+        
         addEdge(*graph, a, b, weight);
     }
     printf("Route '%s' read succesfully and set to actual graph\n", path);
@@ -90,9 +91,23 @@ void pvvGraph(Graph *graph, char *mode)
     }
     current = result;
     printGraph(graph, current);
-    return;
 }
 
+void pvvHelp()
+{
+    printf("Commands:\n");
+    printf("start <n_edges> -> start a graph with n edges\n");
+    printf("read <txt_file> -> set a graph from txt file\n");
+    printf("print <print_mode> -> print the actual graph along with 2 different print modes (1 and 2)\n");
+    printf("exit -> clean/free program to exit\n");
+}
+
+void ppvDFS(Graph *graph)
+{
+    bool visited[graph->n];
+    DFS(graph, visited, graph->n, 'A');
+    printf("");
+}
 /* Read file
 
 

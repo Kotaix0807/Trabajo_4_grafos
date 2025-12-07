@@ -105,3 +105,40 @@ void freeGraph(Graph *graph)
     free(graph);
     graph = NULL;
 }
+
+void hamilton(Graph *graph)
+{
+    if(!graph)
+    {
+        printf("Error: graph is invalid or not initialized\n");
+        return;
+    }
+    if(graph->n < 2)
+    {
+        printf("Graph is less than 2 nodes, not hamilton here...\n");
+        return;
+    }
+
+
+}
+
+void DFS(Graph *graph, bool visited[], int visited_n, unsigned char start)
+{
+    if(!verifyCase(&start))
+    {
+        printf("Error: invalid symbol\n");
+        return;
+    }
+    int j = start - 'A';
+    // Set current node as visited
+    visited[j] = true;
+
+    // For every node of the graph
+    for (int i = 0; i < graph->n; i++)
+    {
+        // If some node is adjacent to the current node
+        // and it has not already been visited
+        if (graph->cost[j][i] >= 1 && (!visited[i]))
+            DFS(graph, visited, visited_n, i + 'A');
+    }
+}

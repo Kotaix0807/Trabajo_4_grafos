@@ -1,3 +1,4 @@
+#include <stdbool.h>
 typedef int Mat;
 
 typedef struct {
@@ -15,3 +16,6 @@ void addEdge(Graph *main, unsigned char src, unsigned char dest, int weight);
 void printGraph(Graph *main, print_mode mode);
 void freeGraph(Graph *main);
 void freeMatGraph(Graph *graph);
+
+void hamilton(Graph *graph);
+void DFS(Graph *graph, bool visited[], int visited_n, unsigned char start);
