@@ -1,0 +1,15 @@
+A B 15
+A D 10
+B C 25
+B E 15
+C D 20
+C E 16
+D E 30
+
+B A 15
+A D 10
+C B 25
+E B 15
+D C 20
+E C 16
+E D 30

@@ -52,7 +52,7 @@ void pvvRead(const char *path, Graph **graph)
     unsigned char a, b;
     int weight;
     int secure_fscanf;
-    while((secure_fscanf = fscanf(route, "%c %c %d\n", &a, &b, &weight)) != EOF)
+    while((secure_fscanf = fscanf(route, " %c %c %d\n", &a, &b, &weight)) != EOF)
     {
         if(secure_fscanf != 3)
         {
@@ -67,6 +67,7 @@ void pvvRead(const char *path, Graph **graph)
         addEdge(*graph, a, b, weight);
     }
     printf("Route '%s' read succesfully and set to actual graph\n", path);
+    hamilton(*graph);
     fclose(route);
 }
 
@@ -100,13 +101,6 @@ void pvvHelp()
     printf("read <txt_file> -> set a graph from txt file\n");
     printf("print <print_mode> -> print the actual graph along with 2 different print modes (1 and 2)\n");
     printf("exit -> clean/free program to exit\n");
-}
-
-void ppvDFS(Graph *graph)
-{
-    bool visited[graph->n];
-    DFS(graph, visited, graph->n, 'A');
-    printf("");
 }
 /* Read file
 

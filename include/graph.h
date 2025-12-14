@@ -1,7 +1,8 @@
-#include <stdbool.h>
+ #include <stdbool.h>
 typedef int Mat;
 
-typedef struct {
+typedef struct 
+{
     int n; //Numero de ciudades
     int **cost;//Matriz de adyacencia
 } Graph;
@@ -16,6 +17,6 @@ void addEdge(Graph *main, unsigned char src, unsigned char dest, int weight);
 void printGraph(Graph *main, print_mode mode);
 void freeGraph(Graph *main);
 void freeMatGraph(Graph *graph);
-
+void DFS(Graph* graph, int j, int count, int cost, int* min_cost, bool* visited, int* path, int* best_path);
 void hamilton(Graph *graph);
-void DFS(Graph *graph, bool visited[], int visited_n, unsigned char start);
+
